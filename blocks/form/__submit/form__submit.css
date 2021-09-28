@@ -1,0 +1,10 @@
+.form__submit {
+  width: 100%;
+  min-height: 50px;
+  border: 0;
+  border-radius: 2px;
+  background-color: #000;
+  color: white;
+  font-size: 18px;
+  line-height: 1.22;
+}
