@@ -1,0 +1,6 @@
+.profile {
+  color: white;
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(2, max-content) auto;
+}
