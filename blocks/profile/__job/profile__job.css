@@ -4,4 +4,13 @@
   font-size: 18px;
   line-height: 1.22;
   width: 100%;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+@media screen and (max-width: 570px) {
+  .profile__job {
+    text-align: center;
+    font-size: 14px;
+  }
 }
