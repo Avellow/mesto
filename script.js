@@ -43,4 +43,15 @@ formElement.addEventListener('submit', formSubmitHandler);
 
 popupCloseEl.addEventListener('click', function() {
   popupEl.classList.remove('popup__opened');
-})
+});
+
+let likeEls = document.querySelectorAll('.place__like');
+
+likeEls.forEach((likeEl) => likeEl.addEventListener('click', function() {
+  let currentIconPath = likeEl.getAttribute('src');
+  if ( currentIconPath === './images/places/like.svg' ) {
+    likeEl.setAttribute('src', './images/places/like-active.svg');
+  } else {
+    likeEl.setAttribute('src', './images/places/like.svg');
+  }
+}));
