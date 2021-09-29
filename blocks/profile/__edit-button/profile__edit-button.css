@@ -6,4 +6,10 @@
   padding: 0;
   align-self: center;
   margin-left: 17px;
+  transition: opacity 0.2s ease;
+}
+
+.profile__edit-button:hover {
+  cursor: pointer;
+  opacity: 0.6;
 }

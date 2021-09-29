@@ -7,4 +7,10 @@
   color: white;
   font-size: 18px;
   line-height: 1.22;
+  transition: opacity 0.2s ease;
+}
+
+.form__submit:hover {
+  cursor: pointer;
+  opacity: 0.8;
 }

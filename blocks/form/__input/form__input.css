@@ -19,5 +19,5 @@
 }
 
 .form__input:focus {
-  outline: 0;
+  outline: rgb(141, 161, 255) solid 2.5px;
 }
