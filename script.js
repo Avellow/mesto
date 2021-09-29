@@ -46,7 +46,7 @@ popupCloseEl.addEventListener('click', function() {
 });
 
 let likeEls = document.querySelectorAll('.place__like');
-
+// ДОЖДАТЬСЯ БРИФА И ЗАДАТЬ ВОПРОС
 likeEls.forEach((likeEl) => likeEl.addEventListener('click', function() {
   let currentIconPath = likeEl.getAttribute('src');
   if ( currentIconPath === './images/places/like.svg' ) {
