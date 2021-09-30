@@ -1,3 +1,11 @@
 .profile__edit-badge {
-  
+  height: 10px;
+  width: 10px;
+}
+
+@media screen and (max-width: 570px) {
+  .profile__edit-badge {
+    width: 7.5px;
+    height: 7.5px;
+  }
 }

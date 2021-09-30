@@ -14,3 +14,10 @@
   cursor: pointer;
   opacity: 0.8;
 }
+
+@media screen and (max-width: 550px) {
+  .form__submit {
+    min-height: 46px;
+    font-size: 14px;
+  }
+}

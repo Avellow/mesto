@@ -8,6 +8,8 @@
 @media screen and (max-width: 570px) {
   .profile__info {
     margin: 0;
-    grid-template-columns: repeat(2, minmax(50px, min-content));
+    position: relative;
+    display: block;
+    
   }
 }

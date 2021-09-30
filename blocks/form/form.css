@@ -4,3 +4,9 @@
   padding: 34px 36px 37px;
   max-width: 358px;
 }
+
+@media screen and (max-width: 550px) {
+  .form {
+    padding: 25px 22px;
+  }
+}
