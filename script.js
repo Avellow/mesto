@@ -1,21 +1,23 @@
-
-
-
-
 // Находим форму в DOM
-let formElement = document.querySelector('.form');// Воспользуйтесь методом querySelector()
+let formElement = document.querySelector('.form');
 // Находим поля формы в DOM
-let nameInput = formElement.querySelector('#name');// Воспользуйтесь инструментом .querySelector()
-let jobInput = formElement.querySelector('#about');// Воспользуйтесь инструментом .querySelector()
+let nameInput = formElement.querySelector('#name');
+let jobInput = formElement.querySelector('#about');
+//Находим попап и его элементы
 let popupEl = document.querySelector('.popup');
 let popupCloseEl = popupEl.querySelector('.popup__close');
 let editButton = document.querySelector('.profile__edit-button');
+//Вешаем событие на форму
 editButton.addEventListener('click', function(evt) {
   evt.preventDefault();
-  popupEl.classList.add('popup__opened');
+
+  popupEl.classList.add('popup__opened'); //Добавили класс, который открывает попап
+  // Находим блок профиль
   let profileEl = document.querySelector('.profile');
+  // Находим элементы профиля и узнаем текущие значения
   let currentName = profileEl.querySelector('.profile__name').textContent;
   let currentJob = profileEl.querySelector('.profile__job').textContent;
+  // выводим текущие значения в инпуты
   nameInput.value = currentName;
   jobInput.value = currentJob;
 });
