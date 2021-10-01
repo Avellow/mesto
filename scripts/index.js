@@ -9,6 +9,8 @@ const profileNameElement = profileElement.querySelector('.profile__name'); // э
 const profileJobElement = profileElement.querySelector('.profile__job'); // элемент содержащий место работы профиля
 const profileEditBtn = profileElement.querySelector('.profile__edit-button'); //кнопка изменения профиля
 
+const placeLikeBtns = document.querySelectorAll('.place__like-button'); // кнопка лайк
+
 const popupElement = document.querySelector('.popup'); //элемент попап
 const popupCloseBtn = popupElement.querySelector('.popup__close'); //кнопка закрытия попапа
 
@@ -33,6 +35,10 @@ function postProfileJob(job) {                  //функция устанав�
   profileJobElement.textContent = job;
 }
 
+function changeLikeState(el) {                         //ф-ция меняет состояние лайка
+  el.classList.toggle('place__like-button_active');
+}
+
 function profileEditHandler() {               //функция хендлер сработающая при нажатии на кнопку edit
   openPopup();
   nameInput.value = getProfileName();
@@ -47,12 +53,18 @@ function formSubmitHandler(evt) {           // функция хендлер с�
   closePopup();
 }
 
+function likeChangeHandler(evt) {
+  changeLikeState(evt.target);
+}
+
+
 //реализую функционал кнопок через event listener
 profileEditBtn.addEventListener('click', profileEditHandler);
 popupCloseBtn.addEventListener('click', closePopup);
 
 formElement.addEventListener('submit', formSubmitHandler);
 
-
-//отсалось реализовать лайки через изменения картинки бекграунда
-//а сами лайки сделать через button с бекграундом картинки лайка
+//переберу массив и применю для каждого элемента handler
+placeLikeBtns.forEach((placeLikeBtn) => {                           //надо бы почитать побольше о стрелочных функциях
+  placeLikeBtn.addEventListener('click', likeChangeHandler);
+});
