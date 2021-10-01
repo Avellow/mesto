@@ -57,14 +57,13 @@ function likeChangeHandler(evt) {
   changeLikeState(evt.target);
 }
 
-
 //реализую функционал кнопок через event listener
 profileEditBtn.addEventListener('click', profileEditHandler);
 popupCloseBtn.addEventListener('click', closePopup);
 
 formElement.addEventListener('submit', formSubmitHandler);
 
-//переберу массив и применю для каждого элемента handler
+//применю для каждого элемента массива указанный handler
 placeLikeBtns.forEach((placeLikeBtn) => {                           //надо бы почитать побольше о стрелочных функциях
   placeLikeBtn.addEventListener('click', likeChangeHandler);
 });
