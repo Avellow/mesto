@@ -4,6 +4,7 @@
   border: 0;
   padding: 0;
   background-image: url(./../../../images/popup/close.svg);
+  background-size: cover;
   background-color: rgba(255, 255, 255, 0);
   position: absolute;
   top: -40px;
