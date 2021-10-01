@@ -12,7 +12,7 @@ const profileEditBtn = profileElement.querySelector('.profile__edit-button'); //
 const placeLikeBtns = document.querySelectorAll('.place__like-button'); // кнопка лайк
 
 const popupElement = document.querySelector('.popup'); //элемент попап
-const popupCloseBtn = popupElement.querySelector('.popup__close'); //кнопка закрытия попапа
+const popupCloseBtn = popupElement.querySelector('.popup__close-button'); //кнопка закрытия попапа
 
 //напишу необходимые функции
 function openPopup() {                           //функция открывающая попап
