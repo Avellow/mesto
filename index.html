@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./pages/index.css">
-  <title>Mesto</title>
+  <title>Место</title>
 </head>
 <body>
   <div class="root">
@@ -18,10 +18,10 @@
         <img class="profile__avatar" src="./images/profile/custo.jpg" alt="фото">
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button class="profile__edit-button"></button>
+          <button class="profile__edit-button" type="button" aria-label="edit"></button>
           <p class="profile__job">Исследователь океана</p>
         </div>
-        <button class="profile__add-button"></button>
+        <button class="profile__add-button" type="button" aria-label="add"></button>
       </section>
 
       <section class="places">
@@ -29,32 +29,32 @@
           <li class="place">
             <img class="place__img" src="./images/places/karachaevsk.jpg" alt="карачаевск">
             <h2 class="place__name">Карачаевск</h2>
-            <button class="place__like-button"></button>
+            <button class="place__like-button" type="button" aria-label="like"></button>
           </li>
           <li class="place">
             <img class="place__img" src="./images/places/elbrus.jpg" alt="эльбрус'">
             <h2 class="place__name">Гора Эльбрус</h2>
-            <button class="place__like-button"></button>
+            <button class="place__like-button" type="button" aria-label="like"></button>
           </li>
           <li class="place">
             <img class="place__img" src="./images/places/dombai.jpg" alt="домбаи">
             <h2 class="place__name">Домбай</h2>
-            <button class="place__like-button"></button>
+            <button class="place__like-button" type="button" aria-label="like"></button>
           </li>
           <li class="place">
             <img class="place__img" src="./images/places/elbrus.jpg" alt="эльбрус'">
             <h2 class="place__name">Гора Эльбрус</h2>
-            <button class="place__like-button"></button>
+            <button class="place__like-button" type="button" aria-label="like"></button>
           </li>
           <li class="place">
             <img class="place__img" src="./images/places/dombai.jpg" alt="домбаи">
             <h2 class="place__name">Домбай</h2>
-            <button class="place__like-button"></button>
+            <button class="place__like-button" type="button" aria-label="like"></button>
           </li>
           <li class="place">
             <img class="place__img" src="./images/places/karachaevsk.jpg" alt="карачаевск">
             <h2 class="place__name">Карачаево-Черкессия</h2>
-            <button class="place__like-button"></button>
+            <button class="place__like-button" type="button" aria-label="like"></button>
           </li>
         </ul>
       </section>
@@ -66,15 +66,15 @@
 
     <div class="popup">
       <div class="popup__container">
-        <form class="form">
+        <form class="form" name="popupForm">
           <h2 class="form__title">Редактировать профиль</h2>
           <fieldset class="form__field">
             <input class="form__input" type="text" name="name" id="name" placeholder="Имя" required>
             <input class="form__input" type="text" name="about" id="about" placeholder="О себе" required>
           </fieldset>
-          <button class="form__submit">Сохранить</button>
+          <button class="form__submit" type="submit">Сохранить</button>
         </form>
-        <button class="popup__close-button"></button>
+        <button class="popup__close-button" type="button" aria-label="close"></button>
       </div>  
     </div>
 
