@@ -26,36 +26,7 @@
 
       <section class="places">
         <ul class="places__list">
-          <li class="place">
-            <img class="place__img" src="./images/places/karachaevsk.jpg" alt="карачаевск">
-            <h2 class="place__name">Карачаевск</h2>
-            <button class="place__like-button" type="button" aria-label="like"></button>
-          </li>
-          <li class="place">
-            <img class="place__img" src="./images/places/elbrus.jpg" alt="эльбрус'">
-            <h2 class="place__name">Гора Эльбрус</h2>
-            <button class="place__like-button" type="button" aria-label="like"></button>
-          </li>
-          <li class="place">
-            <img class="place__img" src="./images/places/dombai.jpg" alt="домбаи">
-            <h2 class="place__name">Домбай</h2>
-            <button class="place__like-button" type="button" aria-label="like"></button>
-          </li>
-          <li class="place">
-            <img class="place__img" src="./images/places/elbrus.jpg" alt="эльбрус'">
-            <h2 class="place__name">Гора Эльбрус</h2>
-            <button class="place__like-button" type="button" aria-label="like"></button>
-          </li>
-          <li class="place">
-            <img class="place__img" src="./images/places/dombai.jpg" alt="домбаи">
-            <h2 class="place__name">Домбай</h2>
-            <button class="place__like-button" type="button" aria-label="like"></button>
-          </li>
-          <li class="place">
-            <img class="place__img" src="./images/places/karachaevsk.jpg" alt="карачаевск">
-            <h2 class="place__name">Карачаево-Черкессия</h2>
-            <button class="place__like-button" type="button" aria-label="like"></button>
-          </li>
+
         </ul>
       </section>
     </main>
@@ -65,7 +36,7 @@
     </footer>
 
     <div class="popup" id="popup-edit">
-      <div class="popup__container">
+      <div class="popup__form-container">
         <form class="form" id="edit-form" name="edit-form">
           <h2 class="form__title">Редактировать профиль</h2>
           <fieldset class="form__field">
@@ -79,7 +50,7 @@
     </div>
 
     <div class="popup" id="popup-add">
-      <div class="popup__container">
+      <div class="popup__form-container">
         <form class="form" id="add-form" name="add-form">
           <h2 class="form__title">Новое место</h2>
           <fieldset class="form__field">
@@ -92,15 +63,25 @@
       </div>
     </div>
 
+    <div class="popup img-popup" id="image-popup">
+      <div class="popup__img-container">
+        <img class="popup__img" src="" alt="">
+        <figcaption class="popup__img-subtitle"></figcaption>
+        <button class="popup__close-button" type="button" aria-label="close"></button>
+      </div>
+    </div>
+
   </div>
 
   <template id="place-blank">
     <li class="place">
+      <button class="place__remove-button"></button>
       <img class="place__img" src="" alt="">
       <h2 class="place__name"></h2>
       <button class="place__like-button" type="button" aria-label="like"></button>
     </li>
   </template>
+
   <script src="./scripts/index.js"></script>
 </body>
 </html>

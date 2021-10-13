@@ -1,5 +1,5 @@
 .place {
-  max-width: 400px;
+  max-width: 320px;
   border-radius: 10px;
   overflow: hidden;
   background-color: white;
@@ -7,4 +7,5 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }

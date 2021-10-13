@@ -42,13 +42,16 @@ const profileEditBtn = profileElement.querySelector('.profile__edit-button'); //
 
 const cardsAddBtn = profileElement.querySelector('.profile__add-button'); //кнопка добавления карточки
 
-const placeLikeBtns = document.querySelectorAll('.place__like-button'); // кнопка лайк
-
 const popupEditElement = document.querySelector('#popup-edit'); //элемент попап редактирования профиля
 const popupAddElement = document.querySelector('#popup-add'); //элемент попап добавления карточки
+const popupImgElement = document.querySelector('#image-popup'); //попап с картинкой нажатой карточки
+const imgElement = popupImgElement.querySelector('.popup__img'); //картинка в попапе
+const imgTitleElement = popupImgElement.querySelector('.popup__img-subtitle'); //подпись к картинке
 const popupCloseBtns = document.querySelectorAll('.popup__close-button'); //кнопка закрытия попапа
 
-const placeBlankElement = document.querySelector('#place-blank').content;
+const placeBlankElement = document.querySelector('#place-blank').content;  //шаблон для карточки
+ 
+const placeListElements = document.querySelector('.places__list');   //список в который вставлять карточки
 
 //необходимые функции и обработчики
 function openPopup(el) {                           //функция открывающая попап
@@ -73,6 +76,58 @@ function editFormSubmitHandler(evt) {           // функция хендлер
 function cardsAddHandler() {                //функция хендлер сработающая при нажатии на кнопку +
   openPopup(popupAddElement);
 }
+function addFormSubmitHandler(evt) {        //хендлер по добавлению нового места в список
+  evt.preventDefault();                     //можно было бы сделать через добавление нового place в initialCards
+  const newPlace = {                        //но каждый раз рендерить заново весь список? сомнительно
+    name: placeNameInput.value,
+    link: placeUrlInput.value,
+  }
+  placeNameInput.value = '';
+  placeUrlInput.value = '';
+  addPlaceCard( newPlace );
+  closePopup();
+}
+
+function changeLikeState(el) {                         //ф-ция меняет состояние лайка 
+  el.classList.toggle('place__like-button_active');
+}
+function likeChangeHandler(evt) {                       //handler для кнопки лайк
+  changeLikeState(evt.target); 
+}
+
+function removePlaceHandler(evt) {                    //хендлер для кнопки remove, удаляет карточку
+  evt.target.parentElement.remove();
+}
+
+function openImgPopupHandler(evt) {                   //хендлер для открытия попапа с картинкой
+  openPopup(popupImgElement);
+  const placeName = evt.target.nextElementSibling.textContent;
+  const placeUrl = evt.target.src;
+  imgElement.setAttribute('src', placeUrl);
+  imgTitleElement.textContent = placeName;
+}
+
+function addPlaceCard( { name, link } ) {                                        //создает и добавляет новую карточку
+  const placeCardElement = placeBlankElement.cloneNode(true);                    //и функционал кнопок
+  const photoElement = placeCardElement.querySelector('.place__img');
+  const titleElement = placeCardElement.querySelector('.place__name');
+  const likeBtn = placeCardElement.querySelector('.place__like-button');
+  const removeBtn = placeCardElement.querySelector('.place__remove-button');
+  
+  likeBtn.addEventListener('click', likeChangeHandler);
+  removeBtn.addEventListener('click', removePlaceHandler);
+  photoElement.addEventListener('click', openImgPopupHandler);
+
+  photoElement.src = link;
+  titleElement.textContent = name;
+  photoElement.alt = name;
+
+  placeListElements.prepend(placeCardElement);
+}
+
+function renderCards(cards) {
+  cards.forEach(addPlaceCard);
+}
 
 //функционал кнопок через event listener
 profileEditBtn.addEventListener('click', profileEditHandler);
@@ -80,4 +135,6 @@ cardsAddBtn.addEventListener('click', cardsAddHandler);
 popupCloseBtns.forEach(popupCloseBtn => popupCloseBtn.addEventListener('click', closePopup));
 
 editFormElement.addEventListener('submit', editFormSubmitHandler);
+addFormElement.addEventListener('submit', addFormSubmitHandler);
 
+renderCards(initialCards); //отрисовывает дефолтные карточки
