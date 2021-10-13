@@ -104,6 +104,7 @@ function openImgPopupHandler(evt) {                   //хендлер для о
   const placeName = evt.target.nextElementSibling.textContent;
   const placeUrl = evt.target.src;
   imgElement.setAttribute('src', placeUrl);
+  imgElement.setAttribute('alt', placeName);
   imgTitleElement.textContent = placeName;
 }
 
