@@ -129,9 +129,7 @@ function openImgPopupHandler(evt) {                   //хендлер для о
 
 function renderCards(cards) {
   cards.forEach(card => {
-    const name = card.name;
-    const link = card.link;
-    const newPlaceCard = createCardElement( name, link);
+    const newPlaceCard = createCardElement( card.name, card.link );
     addPlaceCard(newPlaceCard);
   });
 }
