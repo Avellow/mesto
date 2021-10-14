@@ -58,7 +58,8 @@ function openPopup(el) {                           //функция открыв
   el.classList.add('popup_opened');
 }
 function closePopup() {                                                 //функция закрывающая попап
-  document.querySelector('.popup_opened').classList.remove('popup_opened');   //нашел текущий открытый попап и закрыл его
+  const openedPopup = document.querySelector('.popup_opened');          //нашел текущий открытый попап
+  openedPopup && openedPopup.classList.remove('popup_opened');          //если такой попап !== undefined (т.е. существует), то закрыть его 
 }
 
 function profileEditHandler() {               //функция хендлер сработающая при нажатии на кнопку edit
@@ -73,18 +74,36 @@ function editFormSubmitHandler(evt) {           // функция хендлер
   closePopup();
 }
 
+function addPlaceCard(el) {                                        
+  placeListElements.prepend(el);
+}
+function createCardElement( name, link ) {                                //создает и возвращает новую карточку
+  const placeCardElement = placeBlankElement.cloneNode(true);                    //и функционал кнопок
+  const photoElement = placeCardElement.querySelector('.place__img');
+  const titleElement = placeCardElement.querySelector('.place__name');
+  const likeBtn = placeCardElement.querySelector('.place__like-button');
+  const removeBtn = placeCardElement.querySelector('.place__remove-button');
+  
+  likeBtn.addEventListener('click', likeChangeHandler);
+  removeBtn.addEventListener('click', removePlaceHandler);
+  photoElement.addEventListener('click', openImgPopupHandler);
+
+  photoElement.src = link;
+  titleElement.textContent = name;
+  photoElement.alt = name;
+
+  return placeCardElement;
+}
+
 function cardsAddHandler() {                //функция хендлер сработающая при нажатии на кнопку +
   openPopup(popupAddElement);
 }
 function addFormSubmitHandler(evt) {        //хендлер по добавлению нового места в список
-  evt.preventDefault();                     //можно было бы сделать через добавление нового place в initialCards
-  const newPlace = {                        //но каждый раз рендерить заново весь список? сомнительно
-    name: placeNameInput.value,
-    link: placeUrlInput.value,
-  }
+  evt.preventDefault();                     
+  const newCardPlace = createCardElement( placeNameInput.value, placeUrlInput.value );
+  addPlaceCard( newCardPlace );
   placeNameInput.value = '';
   placeUrlInput.value = '';
-  addPlaceCard( newPlace );
   closePopup();
 }
 
@@ -108,26 +127,13 @@ function openImgPopupHandler(evt) {                   //хендлер для о
   imgTitleElement.textContent = placeName;
 }
 
-function addPlaceCard( { name, link } ) {                                        //создает и добавляет новую карточку
-  const placeCardElement = placeBlankElement.cloneNode(true);                    //и функционал кнопок
-  const photoElement = placeCardElement.querySelector('.place__img');
-  const titleElement = placeCardElement.querySelector('.place__name');
-  const likeBtn = placeCardElement.querySelector('.place__like-button');
-  const removeBtn = placeCardElement.querySelector('.place__remove-button');
-  
-  likeBtn.addEventListener('click', likeChangeHandler);
-  removeBtn.addEventListener('click', removePlaceHandler);
-  photoElement.addEventListener('click', openImgPopupHandler);
-
-  photoElement.src = link;
-  titleElement.textContent = name;
-  photoElement.alt = name;
-
-  placeListElements.prepend(placeCardElement);
-}
-
 function renderCards(cards) {
-  cards.forEach(addPlaceCard);
+  cards.forEach(card => {
+    const name = card.name;
+    const link = card.link;
+    const newPlaceCard = createCardElement( name, link);
+    addPlaceCard(newPlaceCard);
+  });
 }
 
 //функционал кнопок через event listener
