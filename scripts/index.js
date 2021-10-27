@@ -115,7 +115,7 @@ function likeChangeHandler(evt) {                       //handler для кно�
 }
 
 function removePlaceHandler(evt) {                    //хендлер для кнопки remove, удаляет карточку
-  evt.target.parentElement.remove();
+  evt.target.parentElement.remove();                   // заменить parent на closest ?
 }
 
 function openImgPopupHandler(evt) {                   //хендлер для открытия попапа с картинкой
