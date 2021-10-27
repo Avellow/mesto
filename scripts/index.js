@@ -143,3 +143,36 @@ editFormElement.addEventListener('submit', editFormSubmitHandler);
 addFormElement.addEventListener('submit', addFormSubmitHandler);
 
 renderCards(initialCards); //отрисовывает дефолтные карточки
+
+
+//валидация форм
+
+const hasInvalidInput = (inputList) => inputList.some(inputElement => !inputElement.validity.valid);
+
+//раз-/блокирует кнопку submit на основании валидации полей
+const toggleButtonState = (inputList, buttonElement) => {
+  if (hasInvalidInput(inputList)) buttonElement.classList.add('.form__submit_inactive');
+  else buttonElement.classList.remove('.form__submit_inactive');
+}
+
+//устанавливает слушателей для проверки полей и раз-/блокировки кнопки submit
+const setEventListeners = (formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll('.form__input'));
+  const buttonElement = formElement.querySelector('.form__submit');
+  toggleButtonState(inputList, buttonElement);
+}
+
+//активация валидации всех форм и ее полей
+const enableValidation = () => {
+  const formList = Array.from(document.querySelectorAll('.form'));
+  formList.forEach(formElement => {
+    formElement.addEventListener('submit', function (evt) {
+      evt.preventDefault();
+    });
+    //SelectorAll для масштабируемости в будущем
+    const fieldsetList = Array.from(formElement.querySelectorAll('.form__field'));
+    fieldsetList.forEach(fieldset => {
+      //сеттер устанавливающий слушателей
+    });
+  });
+}
