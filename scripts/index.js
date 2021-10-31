@@ -18,6 +18,7 @@ const cardsAddBtn = profileElement.querySelector('.profile__add-button'); //кн
 const popupEditElement = document.querySelector('.popup-edit'); //элемент попап редактирования профиля
 const popupEditSubmitButton = popupEditElement.querySelector('.form__submit'); 
 const popupAddElement = document.querySelector('.popup-add'); //элемент попап добавления карточки
+const addingCardButton = popupAddElement.querySelector('.form__submit'); //кнопка добавления карточки
 const popupImgElement = document.querySelector('.img-popup'); //попап с картинкой нажатой карточки
 const imgElement = popupImgElement.querySelector('.popup__img'); //картинка в попапе
 const imgTitleElement = popupImgElement.querySelector('.popup__img-subtitle'); //подпись к картинке
@@ -31,7 +32,7 @@ const placeListElements = document.querySelector('.places__list');   //спис�
 function openPopup(el) {                           //функция открывающая попап
   el.classList.add('popup_opened');
   el.addEventListener('keydown', closePopupByEsc);
-  el.addEventListener('click', closePopupByClickingOverlay);
+  el.addEventListener('mousedown', closePopupByClickingOverlay);
 }
 function closePopup() {                                                //функция закрывающая попап
   const openedPopup = document.querySelector('.popup_opened');          //нашел текущий открытый попап
@@ -48,6 +49,10 @@ function closePopupByEsc(evt) {
 
 function makeButtonActive(buttonElement) {
   buttonElement.classList.contains('form__submit_inactive') && buttonElement.classList.remove('form__submit_inactive');
+}
+function makeButtonInactive(buttonElement) {
+  !buttonElement.classList.contains('form__submit_inactive') && buttonElement.classList.add('form__submit_inactive');
+  buttonElement.disabled = true;
 }
 
 function profileEditHandler() {               //функция хендлер сработающая при нажатии на кнопку edit
@@ -96,6 +101,7 @@ function addFormSubmitHandler(evt) {        //хендлер по добавле
   placeNameInput.value = '';
   placeUrlInput.value = '';
   closePopup();
+  makeButtonInactive(addingCardButton);
 }
 
 function changeLikeState(el) {                         //ф-ция меняет состояние лайка 
@@ -106,7 +112,7 @@ function likeChangeHandler(evt) {                       //handler для кно�
 }
 
 function removePlaceHandler(evt) {                    //хендлер для кнопки remove, удаляет карточку
-  evt.target.parentElement.remove();                   // заменить parent на closest ?
+  evt.target.closest('.place').remove();              
 }
 
 function openImgPopupHandler(evt) {                   //хендлер для открытия попапа с картинкой
