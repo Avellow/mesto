@@ -29,11 +29,11 @@ const initialCards = [
 const editFormElement = document.querySelector('#edit-form'); //форма для изменения профиля
 const addFormElement = document.querySelector('#add-form'); //форма для добавления карточки
 
-const nameInput = editFormElement.querySelector('#name'); // элемент формы "ввод имени"
-const jobInput = editFormElement.querySelector('#about'); //элемент формы "ввод работы"
+const nameInput = editFormElement.querySelector('#profile-name-input'); // элемент формы "ввод имени"
+const jobInput = editFormElement.querySelector('#profile-job-input'); //элемент формы "ввод работы"
 
-const placeNameInput = addFormElement.querySelector('#place-name'); //элемент ввода названия места
-const placeUrlInput = addFormElement.querySelector('#place-url'); //элемент ввода ссылка на фото места
+const placeNameInput = addFormElement.querySelector('#place-name-input'); //элемент ввода названия места
+const placeUrlInput = addFormElement.querySelector('#place-url-input'); //элемент ввода ссылка на фото места
 
 const profileElement = document.querySelector('.profile'); //элемент профиль
 const profileNameElement = profileElement.querySelector('.profile__name'); // элемент содержащий имя профиля
@@ -42,7 +42,9 @@ const profileEditBtn = profileElement.querySelector('.profile__edit-button'); //
 
 const cardsAddBtn = profileElement.querySelector('.profile__add-button'); //кнопка добавления карточки
 
+const popupElements = document.querySelectorAll('.popup');
 const popupEditElement = document.querySelector('#popup-edit'); //элемент попап редактирования профиля
+const popupEditSubmitButton = popupEditElement.querySelector('.form__submit'); 
 const popupAddElement = document.querySelector('#popup-add'); //элемент попап добавления карточки
 const popupImgElement = document.querySelector('#image-popup'); //попап с картинкой нажатой карточки
 const imgElement = popupImgElement.querySelector('.popup__img'); //картинка в попапе
@@ -56,16 +58,33 @@ const placeListElements = document.querySelector('.places__list');   //спис�
 //необходимые функции и обработчики
 function openPopup(el) {                           //функция открывающая попап
   el.classList.add('popup_opened');
+  el.addEventListener('keydown', closePopupByEsc);
+  el.addEventListener('click', closePopupByClickingOverlay);
 }
-function closePopup() {                                                 //функция закрывающая попап
+function closePopup() {                                                //функция закрывающая попап
   const openedPopup = document.querySelector('.popup_opened');          //нашел текущий открытый попап
   openedPopup && openedPopup.classList.remove('popup_opened');          //если такой попап !== undefined (т.е. существует), то закрыть его 
+  openedPopup.removeEventListener('keydown', closePopupByEsc);
+  openedPopup.removeEventListener('click', closePopupByClickingOverlay);
+}
+function closePopupByClickingOverlay(evt) {
+  evt.target.classList.contains('popup_opened') && closePopup();
+}
+function closePopupByEsc(evt) {
+  (evt.key === "Escape") && closePopup();
+}
+
+function makeButtonActive(buttonElement) {
+  buttonElement.classList.contains('form__submit_inactive') && buttonElement.classList.remove('form__submit_inactive');
 }
 
 function profileEditHandler() {               //функция хендлер сработающая при нажатии на кнопку edit
   openPopup(popupEditElement);
   nameInput.value = profileNameElement.textContent;
   jobInput.value = profileJobElement.textContent;
+  hideInputError(popupEditElement, jobInput, { inputErrorClass: 'form__input_type_error', errorClass: 'form__input-error_active' });
+  hideInputError(popupEditElement, nameInput, { inputErrorClass: 'form__input_type_error', errorClass: 'form__input-error_active' });
+  makeButtonActive(popupEditSubmitButton);
 }
 function editFormSubmitHandler(evt) {           // функция хендлер сработающая при сохранении формы
   evt.preventDefault();
@@ -143,36 +162,3 @@ editFormElement.addEventListener('submit', editFormSubmitHandler);
 addFormElement.addEventListener('submit', addFormSubmitHandler);
 
 renderCards(initialCards); //отрисовывает дефолтные карточки
-
-
-//валидация форм
-
-const hasInvalidInput = (inputList) => inputList.some(inputElement => !inputElement.validity.valid);
-
-//раз-/блокирует кнопку submit на основании валидации полей
-const toggleButtonState = (inputList, buttonElement) => {
-  if (hasInvalidInput(inputList)) buttonElement.classList.add('.form__submit_inactive');
-  else buttonElement.classList.remove('.form__submit_inactive');
-}
-
-//устанавливает слушателей для проверки полей и раз-/блокировки кнопки submit
-const setEventListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll('.form__input'));
-  const buttonElement = formElement.querySelector('.form__submit');
-  toggleButtonState(inputList, buttonElement);
-}
-
-//активация валидации всех форм и ее полей
-const enableValidation = () => {
-  const formList = Array.from(document.querySelectorAll('.form'));
-  formList.forEach(formElement => {
-    formElement.addEventListener('submit', function (evt) {
-      evt.preventDefault();
-    });
-    //SelectorAll для масштабируемости в будущем
-    const fieldsetList = Array.from(formElement.querySelectorAll('.form__field'));
-    fieldsetList.forEach(fieldset => {
-      //сеттер устанавливающий слушателей
-    });
-  });
-}

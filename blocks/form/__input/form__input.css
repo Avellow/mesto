@@ -8,14 +8,14 @@
   line-height: 1.21;
 }
 
-.form__input:last-child {
-  margin-bottom: 48px;
+.form__input:last-of-type {
+  margin-bottom: 47px;
 }
 
 .form__input::placeholder {
   font-size: 14px;
   line-height: 1.21;
-  color: black;
+  color: #c4c4c4;
 }
 
 .form__input:focus {
