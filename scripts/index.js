@@ -42,7 +42,6 @@ const profileEditBtn = profileElement.querySelector('.profile__edit-button'); //
 
 const cardsAddBtn = profileElement.querySelector('.profile__add-button'); //кнопка добавления карточки
 
-const popupElements = document.querySelectorAll('.popup');
 const popupEditElement = document.querySelector('#popup-edit'); //элемент попап редактирования профиля
 const popupEditSubmitButton = popupEditElement.querySelector('.form__submit'); 
 const popupAddElement = document.querySelector('#popup-add'); //элемент попап добавления карточки

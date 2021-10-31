@@ -8,17 +8,22 @@ const currentProps = {
   inputErrorClass: 'form__input_type_error',
   errorClass: 'form__input-error_active'
 };
+
 //проверка валидности переданных инпутов
 function hasInvalidInput(inputList) {
   return inputList.some(inputElement => !inputElement.validity.valid);
-} //посмотри checkValidity мб заменить на него 
+}
 
 //раз-/блокирует кнопку submit на основании валидации полей
 function toggleButtonState(inputList, buttonElement, props) {
-  if (hasInvalidInput(inputList))
+  if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(props.inactiveButtonClass);
-  else
+    buttonElement.disabled = true;
+  }
+  else {
     buttonElement.classList.remove(props.inactiveButtonClass);
+    buttonElement.disabled = false;
+  }
 }
 
 //показывает ошибку под переданным инпутом
