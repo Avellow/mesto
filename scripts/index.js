@@ -1,39 +1,12 @@
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 //необходимые элементы
-const editFormElement = document.querySelector('#edit-form'); //форма для изменения профиля
-const addFormElement = document.querySelector('#add-form'); //форма для добавления карточки
+const editFormElement = document.querySelector('.edit-form'); //форма для изменения профиля
+const addFormElement = document.querySelector('.add-form'); //форма для добавления карточки
 
-const nameInput = editFormElement.querySelector('#profile-name-input'); // элемент формы "ввод имени"
-const jobInput = editFormElement.querySelector('#profile-job-input'); //элемент формы "ввод работы"
+const nameInput = editFormElement.querySelector('.form__input_type_profile-name'); // элемент формы "ввод имени"
+const jobInput = editFormElement.querySelector('.form__input_type_profile-job'); //элемент формы "ввод работы"
 
-const placeNameInput = addFormElement.querySelector('#place-name-input'); //элемент ввода названия места
-const placeUrlInput = addFormElement.querySelector('#place-url-input'); //элемент ввода ссылка на фото места
+const placeNameInput = addFormElement.querySelector('.form__input_type_place-name'); //элемент ввода названия места
+const placeUrlInput = addFormElement.querySelector('.form__input_type_place-url'); //элемент ввода ссылка на фото места
 
 const profileElement = document.querySelector('.profile'); //элемент профиль
 const profileNameElement = profileElement.querySelector('.profile__name'); // элемент содержащий имя профиля
@@ -42,15 +15,15 @@ const profileEditBtn = profileElement.querySelector('.profile__edit-button'); //
 
 const cardsAddBtn = profileElement.querySelector('.profile__add-button'); //кнопка добавления карточки
 
-const popupEditElement = document.querySelector('#popup-edit'); //элемент попап редактирования профиля
+const popupEditElement = document.querySelector('.popup-edit'); //элемент попап редактирования профиля
 const popupEditSubmitButton = popupEditElement.querySelector('.form__submit'); 
-const popupAddElement = document.querySelector('#popup-add'); //элемент попап добавления карточки
-const popupImgElement = document.querySelector('#image-popup'); //попап с картинкой нажатой карточки
+const popupAddElement = document.querySelector('.popup-add'); //элемент попап добавления карточки
+const popupImgElement = document.querySelector('.img-popup'); //попап с картинкой нажатой карточки
 const imgElement = popupImgElement.querySelector('.popup__img'); //картинка в попапе
 const imgTitleElement = popupImgElement.querySelector('.popup__img-subtitle'); //подпись к картинке
 const popupCloseBtns = document.querySelectorAll('.popup__close-button'); //кнопка закрытия попапа
 
-const placeBlankElement = document.querySelector('#place-blank').content;  //шаблон для карточки
+const placeBlankElement = document.querySelector('.place-blank').content;  //шаблон для карточки
  
 const placeListElements = document.querySelector('.places__list');   //список в который вставлять карточки
 

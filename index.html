@@ -34,14 +34,14 @@
       <p class="footer__author">&copy; 2020 Mesto Russia</p>
     </footer>
 
-    <div class="popup" id="popup-edit">
+    <div class="popup popup-edit">
       <div class="popup__form-container">
-        <form class="form" id="edit-form" name="edit-form" novalidate>
+        <form class="form edit-form" name="edit-form" novalidate>
           <h2 class="form__title">Редактировать профиль</h2>
           <fieldset class="form__field">
-            <input class="form__input" type="text" name="profile-name-input" id="profile-name-input" placeholder="Имя" required minlength="2" maxlength="40">
+            <input class="form__input form__input_type_profile-name" type="text" name="profile-name-input" placeholder="Имя" required minlength="2" maxlength="40">
             <span class="form__input-error profile-name-input-error"></span>
-            <input class="form__input" type="text" name="profile-job-input" id="profile-job-input" placeholder="О себе" required minlength="2" maxlength="200">
+            <input class="form__input form__input_type_profile-job" type="text" name="profile-job-input" placeholder="О себе" required minlength="2" maxlength="200">
             <span class="form__input-error profile-job-input-error"></span>
             <button class="form__submit" type="submit">Сохранить</button>
           </fieldset>
@@ -50,14 +50,14 @@
       </div>
     </div>
 
-    <div class="popup" id="popup-add">
+    <div class="popup popup-add">
       <div class="popup__form-container">
-        <form class="form" id="add-form" name="add-form" novalidate>
+        <form class="form add-form" name="add-form" novalidate>
           <h2 class="form__title">Новое место</h2>
           <fieldset class="form__field">
-            <input class="form__input" type="text" name="place-name-input" id="place-name-input" placeholder="Название" required minlength="2" maxlength="30">
+            <input class="form__input form__input_type_place-name" type="text" name="place-name-input" placeholder="Название" required minlength="2" maxlength="30">
             <span class="form__input-error place-name-input-error"></span>
-            <input class="form__input" type="url" name="place-url-input" id="place-url-input" placeholder="Ссылка на картинку" required>
+            <input class="form__input form__input_type_place-url" type="url" name="place-url-input" placeholder="Ссылка на картинку" required>
             <span class="form__input-error place-url-input-error"></span>
             <button class="form__submit" type="submit">Создать</button>
           </fieldset>
@@ -66,7 +66,7 @@
       </div>
     </div>
 
-    <div class="popup img-popup" id="image-popup">
+    <div class="popup img-popup">
       <div class="popup__img-container">
         <figure class="popup__figure">
           <img class="popup__img" src="/" alt="/">
@@ -78,7 +78,7 @@
 
   </div>
 
-  <template id="place-blank">
+  <template class="place-blank">
     <li class="place">
       <button class="place__remove-button"></button>
       <img class="place__img" src="/" alt="/">
@@ -87,6 +87,7 @@
     </li>
   </template>
 
+  <script src="./scripts/defaultCards.js"></script>
   <script src="./scripts/validate.js"></script>
   <script src="./scripts/index.js"></script>
 </body>
