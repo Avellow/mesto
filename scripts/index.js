@@ -117,6 +117,7 @@ function removePlaceHandler(evt) {                    //хендлер для к
 
 function openImgPopupHandler(evt) {                   //хендлер для открытия попапа с картинкой
   openPopup(popupImgElement);
+  popupImgElement.focus();                            //в HTML выставлен tabindex="-1", здесь фокусировка на попап, чтобы закрыть по нажатию esc
   const placeName = evt.target.nextElementSibling.textContent;
   const placeUrl = evt.target.src;
   imgElement.setAttribute('src', placeUrl);
