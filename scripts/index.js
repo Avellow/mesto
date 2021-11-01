@@ -49,6 +49,7 @@ function closePopupByEsc(evt) {
 
 function makeButtonActive(buttonElement) {
   buttonElement.classList.contains('form__submit_inactive') && buttonElement.classList.remove('form__submit_inactive');
+  buttonElement.disabled = false;
 }
 function makeButtonInactive(buttonElement) {
   !buttonElement.classList.contains('form__submit_inactive') && buttonElement.classList.add('form__submit_inactive');
