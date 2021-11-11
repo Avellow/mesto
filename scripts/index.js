@@ -1,4 +1,5 @@
 import { Card } from './Card.js';
+import { FormValidator } from "./validate.js";
 import { initialCards } from "./defaultCards.js";
 
 //необходимые элементы
@@ -26,6 +27,17 @@ const addingCardButton = popupAddElement.querySelector('.form__submit'); //кн�
 const popupCloseBtns = document.querySelectorAll('.popup__close-button'); //кнопка закрытия попапа
 
 const placeListElements = document.querySelector('.places__list');   //список в который вставлять карточки
+
+const formProps = {
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__submit',
+  inactiveButtonClass: 'form__submit_inactive',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active'
+};
+
+const editFormValidator = new FormValidator(formProps, editFormElement);
+const addFormValidator = new FormValidator(formProps, addFormElement);
 
 //необходимые функции и обработчики
 export function openPopup(el) {                           //функция открывающая попап
@@ -55,12 +67,19 @@ function makeButtonInactive(buttonElement) {
   buttonElement.disabled = true;
 }
 
+function hideError(formEl, inputEl) {
+  const errorElement = formEl.querySelector(`.${inputEl.id}-error`);
+  inputEl.classList.remove('form__input_type_error');
+  errorElement.classList.remove('form__input-error_active');
+  errorElement.textContent = '';
+}
+
 function profileEditHandler() {               //функция хендлер сработающая при нажатии на кнопку edit
   openPopup(popupEditElement);
   nameInput.value = profileNameElement.textContent;
   jobInput.value = profileJobElement.textContent;
-  hideInputError(popupEditElement, jobInput, { inputErrorClass: 'form__input_type_error', errorClass: 'form__input-error_active' });
-  hideInputError(popupEditElement, nameInput, { inputErrorClass: 'form__input_type_error', errorClass: 'form__input-error_active' });
+  hideError(editFormElement, nameInput);
+  hideError(editFormElement, jobInput);
   makeButtonActive(popupEditSubmitButton);
 }
 function editFormSubmitHandler(evt) {           // функция хендлер сработающая при сохранении формы
@@ -110,3 +129,6 @@ editFormElement.addEventListener('submit', editFormSubmitHandler);
 addFormElement.addEventListener('submit', addFormSubmitHandler);
 
 renderCards(initialCards, '.place-blank'); //отрисовывает дефолтные карточки
+
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();
