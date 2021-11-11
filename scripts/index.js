@@ -1,3 +1,6 @@
+import { Card } from './Card.js';
+import { initialCards } from "./defaultCards.js";
+
 //необходимые элементы
 const editFormElement = document.querySelector('.edit-form'); //форма для изменения профиля
 const addFormElement = document.querySelector('.add-form'); //форма для добавления карточки
@@ -16,20 +19,16 @@ const profileEditBtn = profileElement.querySelector('.profile__edit-button'); //
 const cardsAddBtn = profileElement.querySelector('.profile__add-button'); //кнопка добавления карточки
 
 const popupEditElement = document.querySelector('.popup-edit'); //элемент попап редактирования профиля
-const popupEditSubmitButton = popupEditElement.querySelector('.form__submit'); 
+const popupEditSubmitButton = popupEditElement.querySelector('.form__submit');
 const popupAddElement = document.querySelector('.popup-add'); //элемент попап добавления карточки
 const addingCardButton = popupAddElement.querySelector('.form__submit'); //кнопка добавления карточки
-const popupImgElement = document.querySelector('.img-popup'); //попап с картинкой нажатой карточки
-const imgElement = popupImgElement.querySelector('.popup__img'); //картинка в попапе
-const imgTitleElement = popupImgElement.querySelector('.popup__img-subtitle'); //подпись к картинке
+
 const popupCloseBtns = document.querySelectorAll('.popup__close-button'); //кнопка закрытия попапа
 
-const placeBlankElement = document.querySelector('.place-blank').content;  //шаблон для карточки
- 
 const placeListElements = document.querySelector('.places__list');   //список в который вставлять карточки
 
 //необходимые функции и обработчики
-function openPopup(el) {                           //функция открывающая попап
+export function openPopup(el) {                           //функция открывающая попап
   el.classList.add('popup_opened');
   el.addEventListener('keydown', closePopupByEsc);
   el.addEventListener('mousedown', closePopupByClickingOverlay);
@@ -74,63 +73,32 @@ function editFormSubmitHandler(evt) {           // функция хендлер
 function addPlaceCard(el) {                                        
   placeListElements.prepend(el);
 }
-function createCardElement( name, link ) {                                //создает и возвращает новую карточку
-  const placeCardElement = placeBlankElement.cloneNode(true);                    //и функционал кнопок
-  const photoElement = placeCardElement.querySelector('.place__img');
-  const titleElement = placeCardElement.querySelector('.place__name');
-  const likeBtn = placeCardElement.querySelector('.place__like-button');
-  const removeBtn = placeCardElement.querySelector('.place__remove-button');
-  
-  likeBtn.addEventListener('click', likeChangeHandler);
-  removeBtn.addEventListener('click', removePlaceHandler);
-  photoElement.addEventListener('click', openImgPopupHandler);
-
-  photoElement.src = link;
-  titleElement.textContent = name;
-  photoElement.alt = name;
-
-  return placeCardElement;
-}
 
 function cardsAddHandler() {                //функция хендлер сработающая при нажатии на кнопку +
   openPopup(popupAddElement);
 }
 function addFormSubmitHandler(evt) {        //хендлер по добавлению нового места в список
-  evt.preventDefault();                     
-  const newCardPlace = createCardElement( placeNameInput.value, placeUrlInput.value );
-  addPlaceCard( newCardPlace );
+  evt.preventDefault();
+  const data = {
+    name: placeNameInput.value,
+    link: placeUrlInput.value,
+  }
+  renderCard( data, '.place-blank' );
   placeNameInput.value = '';
   placeUrlInput.value = '';
   closePopup();
   makeButtonInactive(addingCardButton);
 }
 
-function changeLikeState(el) {                         //ф-ция меняет состояние лайка 
-  el.classList.toggle('place__like-button_active');
-}
-function likeChangeHandler(evt) {                       //handler для кнопки лайк
-  changeLikeState(evt.target); 
+
+function renderCard(data, cardSelector) {
+  const card = new Card(data, cardSelector);
+  const cardElement = card.generateCard();
+  addPlaceCard(cardElement);
 }
 
-function removePlaceHandler(evt) {                    //хендлер для кнопки remove, удаляет карточку
-  evt.target.closest('.place').remove();              
-}
-
-function openImgPopupHandler(evt) {                   //хендлер для открытия попапа с картинкой
-  openPopup(popupImgElement);
-  popupImgElement.focus();                            //в HTML выставлен tabindex="-1", здесь фокусировка на попап, чтобы закрыть по нажатию esc
-  const placeName = evt.target.nextElementSibling.textContent;
-  const placeUrl = evt.target.src;
-  imgElement.setAttribute('src', placeUrl);
-  imgElement.setAttribute('alt', placeName);
-  imgTitleElement.textContent = placeName;
-}
-
-function renderCards(cards) {
-  cards.forEach(card => {
-    const newPlaceCard = createCardElement( card.name, card.link );
-    addPlaceCard(newPlaceCard);
-  });
+function renderCards(cards, cardSelector) {
+  cards.forEach(data => renderCard(data, cardSelector));
 }
 
 //функционал кнопок через event listener
@@ -141,4 +109,4 @@ popupCloseBtns.forEach(popupCloseBtn => popupCloseBtn.addEventListener('click', 
 editFormElement.addEventListener('submit', editFormSubmitHandler);
 addFormElement.addEventListener('submit', addFormSubmitHandler);
 
-renderCards(initialCards); //отрисовывает дефолтные карточки
+renderCards(initialCards, '.place-blank'); //отрисовывает дефолтные карточки

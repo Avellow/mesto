@@ -1,4 +1,25 @@
-//пропсы 
+class FormValidator {
+  constructor(props, form) {
+    this._formSelector = form;
+    this._fieldSelector = props.fieldSelector;
+    this._inputSelector = props.inputSelector;
+    this._submitButtonSelector = props.submitButtonSelector;
+    this._inactiveButtonClass = props.inactiveButtonClass;
+    this._inputErrorClass = props.inputErrorClass;
+    this._errorClass = props.errorClass;
+  }
+
+  _hasInvalidInput(inputList) {
+    return inputList.some(inputElement => !inputElement.validity.valid);
+  }
+
+
+
+}
+
+
+/* ____________________________________- */
+//пропсы
 const currentProps = {
   formSelector: '.form',
   fieldSelector: '.form__field',
