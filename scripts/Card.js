@@ -20,7 +20,6 @@ export class Card {
 
   _handleOpenImgPopup(evt) {
     openPopup(popupImgElement);
-    popupImgElement.focus(); //может переделать для всех попапов и обнулить бордер фокуса
     imgElement.src = evt.target.src;
     imgElement.alt = evt.target.nextElementSibling.textContent;
     imgTitleElement.textContent = evt.target.nextElementSibling.textContent;

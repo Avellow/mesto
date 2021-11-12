@@ -1,5 +1,5 @@
 import { Card } from './Card.js';
-import { FormValidator } from "./validate.js";
+import { FormValidator } from "./FormValidator.js";
 import { initialCards } from "./defaultCards.js";
 
 //необходимые элементы
@@ -42,12 +42,13 @@ const addFormValidator = new FormValidator(formProps, addFormElement);
 //необходимые функции и обработчики
 export function openPopup(el) {                           //функция открывающая попап
   el.classList.add('popup_opened');
+  el.focus();
   el.addEventListener('keydown', closePopupByEsc);
   el.addEventListener('mousedown', closePopupByClickingOverlay);
 }
 function closePopup() {                                                //функция закрывающая попап
   const openedPopup = document.querySelector('.popup_opened');          //нашел текущий открытый попап
-  openedPopup && openedPopup.classList.remove('popup_opened');          //если такой попап !== undefined (т.е. существует), то закрыть его 
+  openedPopup && openedPopup.classList.remove('popup_opened');
   openedPopup.removeEventListener('keydown', closePopupByEsc);
   openedPopup.removeEventListener('click', closePopupByClickingOverlay);
 }
@@ -108,7 +109,6 @@ function addFormSubmitHandler(evt) {        //хендлер по добавле
   closePopup();
   makeButtonInactive(addingCardButton);
 }
-
 
 function renderCard(data, cardSelector) {
   const card = new Card(data, cardSelector);
