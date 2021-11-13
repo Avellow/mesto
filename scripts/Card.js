@@ -18,11 +18,11 @@ export class Card {
       .cloneNode(true);
   }
 
-  _handleOpenImgPopup(evt) {
+  _handleOpenImgPopup = () => {
     openPopup(popupImgElement);
-    imgElement.src = evt.target.src;
-    imgElement.alt = evt.target.nextElementSibling.textContent;
-    imgTitleElement.textContent = evt.target.nextElementSibling.textContent;
+    imgElement.src = this._link;
+    imgElement.alt = this._name;
+    imgTitleElement.textContent = this._name;
   }
 
   _handleRemoveCard(evt) {
