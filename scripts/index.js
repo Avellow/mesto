@@ -20,9 +20,7 @@ const profileEditBtn = profileElement.querySelector('.profile__edit-button'); //
 const cardsAddBtn = profileElement.querySelector('.profile__add-button'); //кнопка добавления карточки
 
 const popupEditElement = document.querySelector('.popup-edit'); //элемент попап редактирования профиля
-const popupEditSubmitButton = popupEditElement.querySelector('.form__submit');
 const popupAddElement = document.querySelector('.popup-add'); //элемент попап добавления карточки
-const addingCardButton = popupAddElement.querySelector('.form__submit'); //кнопка добавления карточки
 
 const popupCloseBtns = document.querySelectorAll('.popup__close-button'); //кнопка закрытия попапа
 
@@ -50,39 +48,24 @@ function closePopup() {                                                //фун�
   const openedPopup = document.querySelector('.popup_opened');          //нашел текущий открытый попап
   openedPopup && openedPopup.classList.remove('popup_opened');
   openedPopup.removeEventListener('keydown', closePopupByEsc);
-  openedPopup.removeEventListener('click', closePopupByClickingOverlay);
+  openedPopup.removeEventListener('mousedown', closePopupByClickingOverlay);
 }
+
 function closePopupByClickingOverlay(evt) {
   evt.target.classList.contains('popup_opened') && closePopup();
 }
+
 function closePopupByEsc(evt) {
   (evt.key === "Escape") && closePopup();
-}
-
-function makeButtonActive(buttonElement) {
-  buttonElement.classList.contains('form__submit_inactive') && buttonElement.classList.remove('form__submit_inactive');
-  buttonElement.disabled = false;
-}
-function makeButtonInactive(buttonElement) {
-  !buttonElement.classList.contains('form__submit_inactive') && buttonElement.classList.add('form__submit_inactive');
-  buttonElement.disabled = true;
-}
-
-function hideError(formEl, inputEl) {
-  const errorElement = formEl.querySelector(`.${inputEl.id}-error`);
-  inputEl.classList.remove('form__input_type_error');
-  errorElement.classList.remove('form__input-error_active');
-  errorElement.textContent = '';
 }
 
 function profileEditHandler() {               //функция хендлер сработающая при нажатии на кнопку edit
   openPopup(popupEditElement);
   nameInput.value = profileNameElement.textContent;
   jobInput.value = profileJobElement.textContent;
-  hideError(editFormElement, nameInput);
-  hideError(editFormElement, jobInput);
-  makeButtonActive(popupEditSubmitButton);
+  editFormValidator.resetValidation();
 }
+
 function editFormSubmitHandler(evt) {           // функция хендлер сработающая при сохранении формы
   evt.preventDefault();
   profileNameElement.textContent = nameInput.value;
@@ -90,13 +73,11 @@ function editFormSubmitHandler(evt) {           // функция хендлер
   closePopup();
 }
 
-function addPlaceCard(el) {                                        
-  placeListElements.prepend(el);
-}
-
 function cardsAddHandler() {                //функция хендлер сработающая при нажатии на кнопку +
   openPopup(popupAddElement);
+  addFormValidator.resetValidation();
 }
+
 function addFormSubmitHandler(evt) {        //хендлер по добавлению нового места в список
   evt.preventDefault();
   const data = {
@@ -107,17 +88,23 @@ function addFormSubmitHandler(evt) {        //хендлер по добавле
   placeNameInput.value = '';
   placeUrlInput.value = '';
   closePopup();
-  makeButtonInactive(addingCardButton);
+}
+
+function createCardElement(data, cardSelector) {
+  const card = new Card(data, cardSelector);
+  return card.generateCard();
 }
 
 function renderCard(data, cardSelector) {
-  const card = new Card(data, cardSelector);
-  const cardElement = card.generateCard();
-  addPlaceCard(cardElement);
+  const cardElement = createCardElement(data, cardSelector);
+  placeListElements.prepend(cardElement);
 }
 
 function renderCards(cards, cardSelector) {
-  cards.forEach(data => renderCard(data, cardSelector));
+  cards.forEach(data => {
+    const cardElement = createCardElement(data, cardSelector);
+    placeListElements.append(cardElement);
+  });
 }
 
 //функционал кнопок через event listener
