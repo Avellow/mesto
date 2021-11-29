@@ -2,6 +2,10 @@ import { Card } from './Card.js';
 import { FormValidator } from "./FormValidator.js";
 import { initialCards } from "./defaultCards.js";
 
+import Section from "./Section.js";
+import Popup from "./Popup.js";
+import PopupWithForm from "./PopupWithForm.js";
+
 //необходимые элементы
 const editFormElement = document.querySelector('.edit-form'); //форма для изменения профиля
 const addFormElement = document.querySelector('.add-form'); //форма для добавления карточки
@@ -36,6 +40,34 @@ const formProps = {
 
 const editFormValidator = new FormValidator(formProps, editFormElement);
 const addFormValidator = new FormValidator(formProps, addFormElement);
+
+//!!!! НОВЫЙ ФУНКЦИОНАЛ !!!!
+// ИСПОЛЬЗУЮ КЛАСС для ОТРИСОВКИ
+const placesSection = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    const card = new Card(item, '.place-blank');
+    const cardElement = card.generateCard();
+    placesSection.addItem(cardElement);
+  },
+}, '.places__list');
+
+placesSection.renderItems();
+
+const addCardPopupForm = new Popup('.popup-add');
+cardsAddBtn.addEventListener('click', () => {
+  addCardPopupForm.open();
+})
+
+const profileEditPopupForm = new PopupWithForm(() => {
+
+}, '.popup-edit');
+profileEditBtn.addEventListener('click', () => {
+  profileEditPopupForm.open();
+});
+
+
+//!!!! КОНЕЦ НОВОГО ФУНКЦИОНАЛА !!!!
 
 //необходимые функции и обработчики
 export function openPopup(el) {                           //функция открывающая попап
@@ -100,22 +132,23 @@ function renderCard(data, cardSelector) {
   placeListElements.prepend(cardElement);
 }
 
+/* под удаление, реализовано через класс Section
 function renderCards(cards, cardSelector) {
   cards.forEach(data => {
     const cardElement = createCardElement(data, cardSelector);
     placeListElements.append(cardElement);
   });
-}
+} */
 
 //функционал кнопок через event listener
-profileEditBtn.addEventListener('click', profileEditHandler);
-cardsAddBtn.addEventListener('click', cardsAddHandler);
-popupCloseBtns.forEach(popupCloseBtn => popupCloseBtn.addEventListener('click', closePopup));
+//profileEditBtn.addEventListener('click', profileEditHandler);
+//cardsAddBtn.addEventListener('click', cardsAddHandler);
+//popupCloseBtns.forEach(popupCloseBtn => popupCloseBtn.addEventListener('click', closePopup));
 
 editFormElement.addEventListener('submit', editFormSubmitHandler);
 addFormElement.addEventListener('submit', addFormSubmitHandler);
 
-renderCards(initialCards, '.place-blank'); //отрисовывает дефолтные карточки
+//удаление renderCards(initialCards, '.place-blank'); //отрисовывает дефолтные карточки
 
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();

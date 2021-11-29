@@ -5,9 +5,9 @@ const imgElement = popupImgElement.querySelector('.popup__img'); //картин�
 const imgTitleElement = popupImgElement.querySelector('.popup__img-subtitle'); //подпись к картинке
 
 export class Card {
-  constructor( data, cardSelector ) {
-    this._name = data.name;
-    this._link = data.link;
+  constructor( { name, link }, cardSelector ) {
+    this._name = name;
+    this._link = link;
     this._cardSelector = cardSelector;
   }
 
