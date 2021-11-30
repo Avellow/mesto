@@ -5,6 +5,7 @@ import { initialCards } from "./defaultCards.js";
 import Section from "./Section.js";
 import Popup from "./Popup.js";
 import PopupWithForm from "./PopupWithForm.js";
+import UserInfo from "./UserInfo.js";
 
 //необходимые элементы
 const editFormElement = document.querySelector('.edit-form'); //форма для изменения профиля
@@ -42,6 +43,14 @@ const editFormValidator = new FormValidator(formProps, editFormElement);
 const addFormValidator = new FormValidator(formProps, addFormElement);
 
 //!!!! НОВЫЙ ФУНКЦИОНАЛ !!!!
+const userInfoSelectors = {
+  nameSelector: ".profile__name",
+  jobSelector: ".profile__job"
+}
+
+const userInfo = new UserInfo(userInfoSelectors);
+
+
 // ИСПОЛЬЗУЮ КЛАСС для ОТРИСОВКИ
 const placesSection = new Section({
   items: initialCards,
