@@ -1,25 +1,17 @@
-import { Card } from './Card.js';
-import { FormValidator } from "./FormValidator.js";
-import { initialCards } from "./defaultCards.js";
+import { Card } from '../components/Card.js';
+import { FormValidator } from "../components/FormValidator.js";
+import { initialCards } from "../utils/defaultCards.js";
+import Section from "../components/Section.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import UserInfo from "../components/UserInfo.js";
+import {
+  profileEditBtn,
+  cardsAddBtn,
+  formProps,
+} from "../utils/constants.js";
 
-import Section from "./Section.js";
-import PopupWithForm from "./PopupWithForm.js";
-import PopupWithImage from "./PopupWithImage.js";
-import UserInfo from "./UserInfo.js";
-
-
-//необходимые элементы
-const profileEditBtn = document.querySelector('.profile__edit-button'); //кнопка изменения профиля
-const cardsAddBtn = document.querySelector('.profile__add-button'); //кнопка добавления карточки
-
-const formProps = {
-  inputSelector: '.form__input',
-  submitButtonSelector: '.form__submit',
-  inactiveButtonClass: 'form__submit_inactive',
-  inputErrorClass: 'form__input_type_error',
-  errorClass: 'form__input-error_active'
-};
-
+//валидация форм
 const editFormValidator = new FormValidator(formProps, '.edit-form');
 const addFormValidator = new FormValidator(formProps, '.add-form');
 editFormValidator.enableValidation();
@@ -46,7 +38,6 @@ profileEditBtn.addEventListener('click', () => {
   profileEditPopupForm.open();
   editFormValidator.resetValidation();
 });
-
 
 //функционал попапа с картинкой
 const popupWithImage = new PopupWithImage('.img-popup');
