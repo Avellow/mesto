@@ -1,14 +1,9 @@
-import { openPopup } from "./index.js";
-
-const popupImgElement = document.querySelector('.img-popup'); //попап с картинкой нажатой карточки
-const imgElement = popupImgElement.querySelector('.popup__img'); //картинка в попапе
-const imgTitleElement = popupImgElement.querySelector('.popup__img-subtitle'); //подпись к картинке
-
 export class Card {
-  constructor( { name, link }, cardSelector ) {
+  constructor( { name, link }, cardSelector, handleCardClick ) {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -16,13 +11,6 @@ export class Card {
       .querySelector(this._cardSelector)
       .content
       .cloneNode(true);
-  }
-
-  _handleOpenImgPopup = () => {
-    openPopup(popupImgElement);
-    imgElement.src = this._link;
-    imgElement.alt = this._name;
-    imgTitleElement.textContent = this._name;
   }
 
   _handleRemoveCard(evt) {
@@ -34,7 +22,7 @@ export class Card {
   }
 
   _setEventListeners() {
-    this._imgElement.addEventListener('click', this._handleOpenImgPopup);
+    this._imgElement.addEventListener('click', this._handleCardClick);
     this._removeBtnElement.addEventListener('click', this._handleRemoveCard);
     this._likeBtnElement.addEventListener('click', this._handleChangeLikeState);
   }

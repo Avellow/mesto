@@ -1,6 +1,6 @@
 export class FormValidator {
-  constructor(props, form) {
-    this._form = form;
+  constructor(props, formSelector) {
+    this._form = document.querySelector(formSelector);
     this._inputSelector = props.inputSelector;
     this._submitButtonSelector = props.submitButtonSelector;
     this._inactiveButtonClass = props.inactiveButtonClass;
@@ -58,7 +58,6 @@ export class FormValidator {
   }
 
   enableValidation() {
-    this._form.addEventListener('submit', (evt) => evt.preventDefault());
     this._setEventListeners();
   }
 
