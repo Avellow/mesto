@@ -1,7 +1,6 @@
 import './index.css';
 import { Card } from '../components/Card.js';
 import { FormValidator } from "../components/FormValidator.js";
-import { initialCards } from "../utils/defaultCards.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
@@ -11,6 +10,7 @@ import {
   cardsAddBtn,
   formProps,
   userInfoSelectors,
+  initialCards
 } from "../utils/constants.js";
 
 //валидация форм
