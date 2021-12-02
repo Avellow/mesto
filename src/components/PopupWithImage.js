@@ -9,6 +9,7 @@ export default class PopupWithImage extends Popup {
 
   _setImageData(link, title) {
     this._imgElement.src = link;
+    this._imgElement.alt = title;
     this._imgTitleElement.textContent = title;
   }
 
