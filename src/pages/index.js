@@ -10,6 +10,7 @@ import {
   profileEditBtn,
   cardsAddBtn,
   formProps,
+  userInfoSelectors,
 } from "../utils/constants.js";
 
 //валидация форм
@@ -19,16 +20,11 @@ editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
 //функционал профиля
-const userInfoSelectors = {
-  nameSelector: ".profile__name",
-  jobSelector: ".profile__job"
-}
 const userInfo = new UserInfo(userInfoSelectors);
 
 //функционал попапа изменения профиля
 function handleSubmitEditForm(data) {
-  const newUserInfo = new UserInfo(userInfoSelectors);
-  newUserInfo.setUserInfo(data);
+  userInfo.setUserInfo(data);
   profileEditPopupForm.close();
 }
 
@@ -44,6 +40,11 @@ profileEditBtn.addEventListener('click', () => {
 const popupWithImage = new PopupWithImage('.img-popup');
 
 //функционал карточки и ее добавления
+function createCard(data, cardSelector, handler) {
+  const card = new Card(data, cardSelector, handler);
+  return card.generateCard();
+}
+
 function handleCardClick(evt) {
   const cardData = {
     link: evt.target.src,
@@ -53,8 +54,7 @@ function handleCardClick(evt) {
 }
 
 function handleSubmitAddForm(data) {
-  const card = new Card(data, '.place-blank', handleCardClick);
-  const cardElement = card.generateCard();
+  const cardElement = createCard(data, '.place-blank', handleCardClick);
   placesSection.addItem(cardElement, 'start');
   addCardPopupForm.close();
 }
@@ -70,8 +70,7 @@ cardsAddBtn.addEventListener('click', () => {
 const placesSection = new Section({
   items: initialCards,
   renderer: (item) => {
-    const card = new Card(item, '.place-blank', handleCardClick);
-    const cardElement = card.generateCard();
+    const cardElement = createCard(item, '.place-blank', handleCardClick);
     placesSection.addItem(cardElement);
   },
 }, '.places__list');

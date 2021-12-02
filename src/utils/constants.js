@@ -7,3 +7,7 @@ export const formProps = {
   inputErrorClass: 'form__input_type_error',
   errorClass: 'form__input-error_active'
 };
+export const userInfoSelectors = {
+  nameSelector: ".profile__name",
+  jobSelector: ".profile__job"
+};
