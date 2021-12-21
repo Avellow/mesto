@@ -8,6 +8,8 @@ export default class PopupWithForm extends Popup {
     this._inputElements = Array.from(this._popupElement.querySelectorAll('.form__input'));
     this._inputNameElement = this._inputElements.find(el => el.name.includes('username'));
     this._inputJobElement = this._inputElements.find(el => el.name.includes('job'));
+    this._submitButtonElement = this._popupElement.querySelector('.form__submit');
+    this._defaultButtonStatus = this._submitButtonElement.textContent;
   }
 
   _getInputValues() {
@@ -28,10 +30,16 @@ export default class PopupWithForm extends Popup {
     this._handleFormSubmit(data);
   }
 
-  close () {
+  close() {
     super.close();
     this._deleteCurrentValues();
     this._form.removeEventListener('submit', this._submittingFormCallback);
+  }
+
+  changeStatus(isSaving) {
+    isSaving
+      ? this._submitButtonElement.textContent = "Сохранение..."
+      : this._submitButtonElement.textContent = this._defaultButtonStatus;
   }
 
   setInputUserValues({ username, job }) {
@@ -43,5 +51,4 @@ export default class PopupWithForm extends Popup {
     super.setEventListeners();
     this._form.addEventListener('submit', this._submittingFormCallback);
   }
-
 }
